@@ -16,10 +16,13 @@ console.log("hello");
 }
 function validateMessages(messages){
     const passwordAttempt = document.querySelector('#password').value;
+    var MD5 = new Hashes.MD5
+    const hashedPasswordAttempt = MD5.hex(passwordAttempt.toString())
+    console.log(hashedPasswordAttempt)
     var match = new Boolean (false); 
     for (message in messages){
         const messageData = messages[message]; 
-        if (messageData.password  === passwordAttempt){
+        if (messageData.password  === hashedPasswordAttempt){
             console.log("correct password"); 
             match = true;
             renderMessageAsHtml(messageData.message);
@@ -39,7 +42,7 @@ function renderMessageAsHtml(messageContent){
     //hide input form 
     const passwordInput = document.querySelector('#passwordInput'); 
     //hide it 
-    passcodeInput.style.display = 'none';
+    passwordInput.style.display = 'none';
 //Render message as html 
     const messageDiv = document.querySelector("#message")
     messageDiv.innerHTML = messageContent; 
